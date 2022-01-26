@@ -3,8 +3,8 @@
 #include <WiFiUdp.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
-const char* ssid = "NOMOREDOTAFORTOMMOROW"; // IT-DEV
-const char* password = "N0m0r3d0t4";
+const char* ssid = "iPhone"; // IT-DEV
+const char* password = "aldiridho";
 
 //==========================HTTP====================================
 String updateParkir = "https://tirtawangi.com/index.php/Arduino/updateParkir";

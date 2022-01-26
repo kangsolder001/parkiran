@@ -11,8 +11,10 @@ String room[]  = {"L1.1", "L1.2", "L1.3", "L1.4", "L1.5", "L1.6", "L1.7", "L1.8"
 int ir [] = {50, 48, 46, 44, 42, 5, 4, 3, 2, 52, 43, A15, A14, A13, A12, A11, A10, A9, A8, A7};
 int pin [] = {30, 28, 26, 24, 22, 40, 38, 36, 34, 32, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41};
 int irlt1 [] = { A7, A8, A9, A10, A11, A12, A13, A14, A15};
-int ir_before[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-int ir_now[20];
+//int ir_before[] = {0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+
+int ir_before[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+bool ir_now[20];
 // =================================================================================
 int serFront = 9;
 int irFront = 10;
@@ -23,11 +25,12 @@ int PB = 6;
 bool bPB;
 bool statFrontGate;
 bool statBackGate;
-unsigned long prevGetTime;
+unsigned long prevGetTime, prevbgetTime;
 Servo Front;
 Servo Back;
 int totalparkir;
 bool bupdateLCD = true;
+bool bgetTime;
 void setup() {
   lcd.init();
   lcd.backlight();

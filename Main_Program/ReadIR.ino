@@ -3,7 +3,8 @@ void readIR()
   for (int i = 0; i <= 11; i++) //untuk lantai 2 yang pakai modul IR
   {
     ir_now[i] = digitalRead(ir[i]);
-    if ( ir_now[i] == 1)
+    ir_now[i] = !ir_now[i];
+    if ( ir_now[i] == 0)
     {
       ledG(pin[i]);
     }
@@ -27,7 +28,9 @@ void readIR()
       dataSend += "|";
       dataSend += String(ir_now[i]);
       dataSend += "|\r";
+
       Serial1.print(dataSend);
+      //      Serial.println(dataSend);
     }
   }
   for (int i = 12; i <= 19; i++) // untuk lantai 1 yang pakai ADC IR
@@ -35,13 +38,13 @@ void readIR()
     int input_ir = analogRead(ir[i]);
     if ( input_ir >= 155)
     {
-      ir_now[i] = 0;
+      ir_now[i] = 1;
     }
     else
     {
-      ir_now[i] = 1;
+      ir_now[i] = 0;
     }
-    if ( ir_now[i] == 1)
+    if ( ir_now[i] == 0)
     {
       ledG(pin[i]);
     }
@@ -57,7 +60,7 @@ void readIR()
       Serial.print("status = ");
       Serial.println(ir_now[i]);
       String idLantai = room[i].substring(0, 2);
-      String idParkir = room[i].substring(3, 4);
+      String idParkir = room[i].substring(3,  room[i].length());
       String dataSend = "|updateParkir|";
       dataSend += idLantai;
       dataSend += "|";

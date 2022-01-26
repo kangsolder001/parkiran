@@ -1,11 +1,17 @@
 void getTimeESP()
 {
   
-  if ( millis() - prevGetTime >= 1800000|| year() < 2022)
+  if ( millis() - prevGetTime >= 1800000 || year() < 2022 && bgetTime)
   {
     Serial1.print("|getTime|\r");
     Serial.println("GetTime to ESP32");
     prevGetTime = millis();
+    bgetTime = false;
+  }
+  if ( millis() - prevbgetTime >= 5000 && !bgetTime)
+  {
+    bgetTime = true;
+    prevbgetTime = millis();
   }
 }
 String getTime()
