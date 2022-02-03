@@ -3,7 +3,7 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
-LiquidCrystal_I2C lcd(0x3F, 16, 2);
+LiquidCrystal_I2C lcd(0x27, 20, 4);
 #include <TimeLib.h>
 Adafruit_Thermal printer(&Serial2);
 //======================PIN LED dan IR==============================================
@@ -25,7 +25,12 @@ int PB = 6;
 bool bPB;
 bool statFrontGate;
 bool statBackGate;
-unsigned long prevGetTime, prevbgetTime;
+unsigned long prevGetTime, prevbgetTime, secBefore;
+//==============================IdPark========================
+uint32_t TimeId [20];
+int ParkId [20];
+int indexTimeId = 0;
+int indexParkId = 0;
 Servo Front;
 Servo Back;
 int totalparkir;

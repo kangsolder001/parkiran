@@ -2,17 +2,20 @@ void readPB()
 {
   if ( digitalRead(PB) == 1 && bPB && totalparkir < 20)
   {
+    indexTimeId++;
     digitalWrite(buzz, 1);
     totalparkir++;
     openGate(Front, serFront);
     statFrontGate = true;
     Serial.println("PB ON ");
-    String dataSend = "|addCar|";
-    dataSend += String(now());
-    dataSend += "|\r";
-    Serial.println(dataSend);
-    Serial1.print(dataSend);
-    printText();
+    //    printText();
+    TimeId [indexTimeId] = now();
+
+    Serial.print("time Id ");
+    Serial.print(indexTimeId);
+    Serial.print(" = ");
+    Serial.println(TimeId[indexTimeId]);
+
     bPB = false;
     bupdateLCD = true;
     delay(500);

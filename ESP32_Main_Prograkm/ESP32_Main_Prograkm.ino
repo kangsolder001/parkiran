@@ -2,9 +2,11 @@
 #include<TimeLib.h>
 #include <WiFiUdp.h>
 #include <HTTPClient.h>
-#include <ArduinoJson.h>
-const char* ssid = "iPhone"; // IT-DEV
-const char* password = "aldiridho";
+#include <ArduinoJson.h> // library json
+//const char* ssid = "iPhone"; // ssid
+//const char* password = "aldiridho"; // password
+const char* ssid = "Nomore"; //
+const char* password = "nomoredota";
 
 //==========================HTTP====================================
 String updateParkir = "https://tirtawangi.com/index.php/Arduino/updateParkir";
@@ -50,19 +52,15 @@ void loop() {
     }
 
   }
-  
-  if ( year() == 1970 )
-  {
+  if ( year() == 1970 ) {
     ntpBegin();
   }
-  if ( now() != before)
-  {
+  if ( now() != before) {
     Serial.println(now());
     before = now();
   }
 
-  if (Serial2.available())
-  {
+  if (Serial2.available())  {
     String in = Serial2.readStringUntil('\r');
     Serial.println(in);
     int ind1, ind2, ind3, ind4, ind5;
@@ -83,17 +81,16 @@ void loop() {
     Serial.print("data 3 = ");
     Serial.println(data3);
 
-    if ( data1 == "addCar")
-    {
+    if ( data1 == "addCar") {
       //      String dataSend = toJson(data2);
       String dataSend = "id=";
       dataSend += data2;
+      dataSend += "&idParkir=";
+      dataSend += data3;
       sendDataHTTP(insertID, dataSend);
       //      sendDataMQTT(topicSendID, dataSend);
       //sendData
-    }
-    else if ( data1 == "updateParkir")
-    {
+    } else if ( data1 == "updateParkir") {
       String dataSend = "idLantai=";
       dataSend += String(data2);
       dataSend += "&idParkir=";
@@ -103,9 +100,7 @@ void loop() {
       sendDataHTTP(updateParkir, dataSend);
       //      String dataSend = toJsonLokasiParkir(data2, data3, data4);
       //      sendDataMQTT(topicSendStatus, dataSend);
-    }
-    else if ( data1 == "getTime")
-    {
+    } else if ( data1 == "getTime") {
       Serial.println(now());
       String dataSend = "|timenow|";
       dataSend += String(now());
@@ -114,8 +109,7 @@ void loop() {
       //sendData
     }
   }
-  if (Serial.available())
-  {
+  if (Serial.available()) {
     String in = Serial.readStringUntil('\r');
     Serial.println(in);
     int ind1, ind2, ind3, ind4, ind5;
@@ -136,17 +130,16 @@ void loop() {
     Serial.print("data 3 = ");
     Serial.println(data3);
 
-    if ( data1 == "addCar")
-    {
+    if ( data1 == "addCar") {
       //      String dataSend = toJson(data2);
       String dataSend = "id=";
       dataSend += String(now());
+      dataSend += "&idParkir=";
+      dataSend += data2;
       sendDataHTTP(insertID, dataSend);
       //      sendDataMQTT(topicSendID, dataSend);
       //sendData
-    }
-    else if ( data1 == "updateParkir")
-    {
+    } else if ( data1 == "updateParkir") {
       String dataSend = "idLantai=";
       dataSend += String(data2);
       dataSend += "&idParkir=";
@@ -156,24 +149,18 @@ void loop() {
       sendDataHTTP(updateParkir, dataSend);
       //      String dataSend = toJsonLokasiParkir(data2, data3, data4);
       //      sendDataMQTT(topicSendStatus, dataSend);
-    }
-    else if ( data1 == "updateGate")
-    {
+    } else if ( data1 == "updateGate") {
       String dataSend = "gate=A&status=1";
       sendDataHTTP(UpdateGate, dataSend);
       //update status gate jadi 1
-    }
-    else if ( data1 == "getTime")
-    {
+    } else if ( data1 == "getTime") {
       Serial.println(now());
       String dataSend = "|timenow|";
       dataSend += String(now());
       dataSend += "|\r";
       Serial2.print(dataSend);
       //sendData
-    }
-    else if (data1 == "get")
-    {
+    } else if (data1 == "get") {
       String res;
       getDataHTTP(getGate, res);
     }
